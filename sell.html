@@ -34,7 +34,35 @@
             </nav>
         </div>
         <div id="content">
+            <h2>Create a Listing</h2>
+            <form action="demo.php" method="post" onsubmit="return this.checkValidity()">
+                <label for="title">Title (Leave out special characters):</label></br>
+                <input type="text" pattern="[a-zA-Z-0-9]{0,75}" id="title" name="title" required><br>
+                <p>&nbsp;</p>
+                <label for="author">Author: </label></br>
+                <input type="text" pattern="[a-zA-Z]{0,50}" id="author" name="author" required><br>
+                <p>&nbsp;</p>
+                <label for="classCode">Class Code (ex: CS364): </label></br>
+                <input type="text" pattern="[a-zA-Z-0-9]{0,10}" id="classCode" name="classCode" required><br>
+                <p>&nbsp;</p>
+                <label for="price">Price (Do not include dollar sign): </label></br>
+                <input type="number" id="price" name="price" required min="0" max="250"><br>
+                <p>&nbsp;</p>
+                <p>Type:</p>
+                <input type="radio" id="textbook" name="type" value="textbook" required>
+                <label for="textbook">Textbook</label><br>
+                <input type="radio" id="notes" name="type" value="notes" required>
+                <label for="notes">Notes</label><br>
+                <input type="radio" id="gr" name="type" value="gr" required>
+                <label for="gr">Released GRs</label><br>
+                <p>&nbsp;</p>
+                <label for="image">Upload an image: </label></br>
+                <input type="file" id="image" name="image" required><br>
+                <p>&nbsp;</p>
+                <input type="submit" value="Submit">
+                
 
+            </form>
         </div>
     </div>
 </html>
