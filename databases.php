@@ -1,7 +1,6 @@
-<?php 
-$server = "localhost";
-$username = "student";
-$password = "CompSci364";
+<?php
+
+include 'credentials.php';
 
 $connection = new mysqli($server, $username, $password, "student")
 	or die("Couldn't connect to database!");
