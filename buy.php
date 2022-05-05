@@ -55,6 +55,22 @@
             </div>
             <p>&nbsp;</p>
             <h2>Listings Available:</h2>
+	    <?php
+		$server = "localhost";
+		$username = "student";
+		$password = "CompSci364";
+
+		$connection = new mysqli($server, $username, $password, "student")
+		or die("Couldn't connect to database!");
+
+		$statement = $connection->prepare("SELECT * FROM Textbook ORDER BY RAND();");
+		$statement->execute();
+		$statement->bind_result($title, $author, $id);
+
+while($statement->fetch()) {
+	echo "Data is ".$title."<br />";
+}
+	    ?>
 
         </div>
     </div>
