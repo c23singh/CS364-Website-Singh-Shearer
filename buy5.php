@@ -20,10 +20,10 @@
                         <a href="home.html">Home</a>
                     </li>
                     <li>
-                        <a href="buy.php">Buy</a>
+                        <a href="buy0.php">Buy</a>
                     </li>
                     <li>
-                        <a href="sell.html">Sell</a>
+                        <a href="sell.php">Sell</a>
                     </li>
                     <li>
                         <a href="account.html">Account</a>

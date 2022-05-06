@@ -22,7 +22,7 @@
                         <a href="buy0.php">Buy</a>
                     </li>
                     <li>
-                        <a href="sell.html">Sell</a>
+                        <a href="sell.php">Sell</a>
                     </li>
                     <li>
                         <a href="account.html">Account</a>
@@ -35,15 +35,38 @@
         </div>
         <div id="content">
             <h2>Create a Listing</h2>
-            <form action="demo.php" method="post" onsubmit="return this.checkValidity()">
+            <?php
+                include 'credentials.php';
+                $connection = new mysqli($server, $username, $password, "student")
+                    or die("Couldn't connect to database!");
+                $iditem = rand(0, 999);
+                $idseller = rand(0, 999);
+                if(isset($_POST['submit'])){
+                  if($_POST['type'] == 'textbook'){
+                      $stone = $connection->prepare("INSERT INTO Items (ItemID, CourseID, Type, Price, SellerID) VALUES(?, ?, 'Textbook', ?, ?);");
+                      $stone->bind_param('isdi', $iditem, $_POST['classCode'], $_POST['price'], $idseller);
+                      $stone->execute();
+                      $sttwo = $connection->prepare("INSERT INTO Textbook (Title, Author, ItemID) VALUES(?, ?, ?);");
+                      $sttwo->bind_param('ssi', $_POST['title'], $_POST['author'], $iditem);
+                      $sttwo->execute();
+                  } elseif ($_POST['type'] == 'notes') {
+
+                  } elseif ($_POST['type'] == 'gr') {
+
+                  } else {
+                    echo "Unkown Error Occured";
+                  }
+                }
+            ?>
+            <form action="" method="POST">
                 <label for="title">Title (Leave out special characters):</label></br>
-                <input type="text" pattern="[a-zA-Z-0-9]{0,75}" id="title" name="title" required><br>
+                <input type="text" pattern="[a-zA-Z-0-9 ]{0,75}" id="title" name="title" required><br>
                 <p>&nbsp;</p>
                 <label for="author">Author: </label></br>
-                <input type="text" pattern="[a-zA-Z]{0,50}" id="author" name="author" required><br>
+                <input type="text" pattern="[a-zA-Z ]{0,50}" id="author" name="author" required><br>
                 <p>&nbsp;</p>
                 <label for="classCode">Class Code (ex: CS364): </label></br>
-                <input type="text" pattern="[a-zA-Z-0-9]{0,10}" id="classCode" name="classCode" required><br>
+                <input type="text" pattern="[a-zA-Z-0-9 ]{0,10}" id="classCode" name="classCode" required><br>
                 <p>&nbsp;</p>
                 <label for="price">Price (Do not include dollar sign): </label></br>
                 <input type="number" id="price" name="price" required min="0" max="250"><br>
@@ -56,13 +79,9 @@
                 <input type="radio" id="gr" name="type" value="gr" required>
                 <label for="gr">Released GRs</label><br>
                 <p>&nbsp;</p>
-                <label for="image">Upload an image: </label></br>
-                <input type="file" id="image" name="image" required><br>
-                <p>&nbsp;</p>
-                <input type="submit" value="Submit">
-
-
+                <input type="submit" name="submit" value="Submit">
             </form>
+
         </div>
     </div>
 </html>
