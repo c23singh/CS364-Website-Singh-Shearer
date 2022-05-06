@@ -49,16 +49,42 @@
                       $sttwo = $connection->prepare("INSERT INTO Textbook (Title, Author, ItemID) VALUES(?, ?, ?);");
                       $sttwo->bind_param('ssi', $_POST['title'], $_POST['author'], $iditem);
                       $sttwo->execute();
+                      $stthree = $connection->prepare("INSERT INTO Seller (Name, Phone, Email, SellerID) VALUES(?, ?, ?, ?);");
+                      $stthree->bind_param('sssi', $_POST['Name'], $_POST['phone'], $_POST['email'], $idseller);
+                      $stthree->execute();
                   } elseif ($_POST['type'] == 'notes') {
-
+                      $stone = $connection->prepare("INSERT INTO Items (ItemID, CourseID, Type, Price, SellerID) VALUES(?, ?, 'Notes', ?, ?);");
+                      $stone->bind_param('isdi', $iditem, $_POST['classCode'], $_POST['price'], $idseller);
+                      $stone->execute();
+                      $sttwo = $connection->prepare("INSERT INTO Notes (Name, Author, ItemID) VALUES(?, ?, ?);");
+                      $sttwo->bind_param('ssi', $_POST['title'], $_POST['author'], $iditem);
+                      $sttwo->execute();
+                      $stthree = $connection->prepare("INSERT INTO Seller (Name, Phone, Email, SellerID) VALUES(?, ?, ?, ?);");
+                      $stthree->bind_param('sssi', $_POST['Name'], $_POST['phone'], $_POST['email'], $idseller);
+                      $stthree->execute();
                   } elseif ($_POST['type'] == 'gr') {
-
+                      $stone = $connection->prepare("INSERT INTO Items (ItemID, CourseID, Type, Price, SellerID) VALUES(?, ?, 'GR', ?, ?);");
+                      $stone->bind_param('isdi', $iditem, $_POST['classCode'], $_POST['price'], $idseller);
+                      $stone->execute();
+                      $sttwo = $connection->prepare("INSERT INTO GR (Name, Author, Year,  ItemID) VALUES(?, ?, 1969,?);");
+                      $sttwo->bind_param('ssi', $_POST['title'], $_POST['author'], $iditem);
+                      $sttwo->execute();
+                      $stthree = $connection->prepare("INSERT INTO Seller (Name, Phone, Email, SellerID) VALUES(?, ?, ?, ?);");
+                      $stthree->bind_param('sssi', $_POST['Name'], $_POST['phone'], $_POST['email'], $idseller);
+                      $stthree->execute();
                   } else {
                     echo "Unkown Error Occured";
                   }
                 }
             ?>
             <form action="" method="POST">
+                <label for="name">Your First Name: </label></br>
+                <input type="text" pattern="[a-zA-Z ]{0,50}" id="name" name="name" required><br>
+                <label for="phone">Phone (Do not include parentheses or hyphens): </label></br>
+                <input type="text" pattern="[0-9]{0,10}" id="phone" name="phone" required><br>
+                <label for="emailAddress">Email: </label></br>
+		            <input type="email" maxlength="50" id="emailAddress" name="emailAddress" required><br>
+                <p>&nbsp;</p>
                 <label for="title">Title (Leave out special characters):</label></br>
                 <input type="text" pattern="[a-zA-Z-0-9 ]{0,75}" id="title" name="title" required><br>
                 <p>&nbsp;</p>
